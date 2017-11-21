@@ -1,4 +1,4 @@
-package fr.emse.majeureinfo.springbootintro.web;
+package fr.emse.majeureinfo.springbootintro.dto;
 
 import fr.emse.majeureinfo.springbootintro.model.Actuator;
 import fr.emse.majeureinfo.springbootintro.model.Robot;

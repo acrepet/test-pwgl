@@ -1,4 +1,4 @@
-package fr.emse.majeureinfo.springbootintro.web;
+package fr.emse.majeureinfo.springbootintro.dto;
 
 import fr.emse.majeureinfo.springbootintro.model.Sensor;
 import fr.emse.majeureinfo.springbootintro.model.Status;

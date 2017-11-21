@@ -14,6 +14,7 @@ import java.util.List;
  * @author A Crepet
  */
 public class RobotDaoImpl implements RobotDaoCustom {
+
     @PersistenceContext
     private EntityManager em;
 

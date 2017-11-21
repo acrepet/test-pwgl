@@ -1,15 +1,25 @@
 package fr.emse.majeureinfo.springbootintro.model;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 @Entity
 @SuppressWarnings("serial")
 public class Robot {
 
+    @Id
+    @GeneratedValue
     private Long id;
 
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     private Sensor sensor;
 
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     private Actuator actuator;
 
     public Robot(Sensor sensor, Actuator actuator) {
