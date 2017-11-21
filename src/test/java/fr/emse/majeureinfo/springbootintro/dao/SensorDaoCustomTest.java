@@ -30,7 +30,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @TestPropertySource("/test.properties")
 public class SensorDaoCustomTest {
 
-
+    @Autowired
     private SensorDao sensorDao;
 
 
@@ -40,7 +40,12 @@ public class SensorDaoCustomTest {
 
     protected static final DbSetupTracker TRACKER = new DbSetupTracker();
 
-     protected void dbSetup(Operation operation) {
+    private static final Operation DELETE_ALL = DeleteAll.from("SENSOR");
+
+    protected void dbSetup(Operation operation) {
+         DbSetup setup = new DbSetup(new DataSourceDestination(dataSource),
+                 Operations.sequenceOf(DELETE_ALL, operation));
+         TRACKER.launchIfNecessary(setup);
     }
 
     @Before
@@ -48,7 +53,7 @@ public class SensorDaoCustomTest {
         Operation sensor =
                 Insert.into("SENSOR")
                         .withDefaultValue("status", Status.ON)
-                        .columns("id", "speed")
+                        .columns("id", "signal")
                         .values(1L, 22)
                         .build();
         dbSetup(sensor);

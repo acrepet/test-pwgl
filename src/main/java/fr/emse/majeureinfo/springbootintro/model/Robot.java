@@ -1,16 +1,22 @@
 package fr.emse.majeureinfo.springbootintro.model;
 
-import javax.persistence.Entity;
+import javax.persistence.*;
 
 @Entity
 @SuppressWarnings("serial")
 public class Robot {
 
+    @Id
+    @GeneratedValue
     private Long id;
 
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private Sensor sensor;
 
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private Actuator actuator;
+
+    public Robot(){}
 
     public Robot(Sensor sensor, Actuator actuator) {
         this.sensor = sensor;
@@ -43,24 +49,10 @@ public class Robot {
     }
 
     public void switchSensor() {
-        if (getSensor().getStatus() == Status.ON){
-            getSensor().setStatus(Status.OFF);
-        }
-        else {
-            getSensor().setStatus(Status.ON);
-        }
+        sensor.setStatus(sensor.getStatus() == Status.ON ? Status.OFF : Status.ON);
     }
-
 
     public void switchActuator() {
-        if (getActuator().getStatus() == Status.ON) {
-            getActuator().setStatus(Status.OFF);
-        }
-        else {
-            getActuator().setStatus(Status.ON);
-        }
+        actuator.setStatus(actuator.getStatus() == Status.ON ? Status.OFF : Status.ON);
     }
-
-
-
 }

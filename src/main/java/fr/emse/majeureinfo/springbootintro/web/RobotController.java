@@ -59,7 +59,7 @@ public class RobotController {
     private Robot checkIfRobotExists(Long robotId){
         if (robotId == null) throw new NotFoundException("Robot ID must not be null");
         Robot robot = robotDao.findOne(robotId);
-        if (robotId == null) throw new NotFoundException("No robot with ID " + robotId);
+        if (robot == null) throw new NotFoundException("No robot with ID " + robotId);
         return robot;
     }
 }
