@@ -1,7 +1,8 @@
-package fr.emse.majeureinfo.springbootintro.web;
+package fr.emse.majeureinfo.springbootintro.controller;
 
 import fr.emse.majeureinfo.springbootintro.dao.RobotDao;
 import fr.emse.majeureinfo.springbootintro.model.Robot;
+import fr.emse.majeureinfo.springbootintro.dto.RobotDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -9,10 +10,11 @@ import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@RestController
+@Transactional
 public class RobotController {
 
     private final RobotDao robotDao;
-
 
     public RobotController(RobotDao robotDao) {
         this.robotDao = robotDao;
@@ -31,19 +33,19 @@ public class RobotController {
         return new RobotDto(checkIfRobotExists(robotId));
     }
 
-    @PutMapping("/switch-sensor-and-list")
+    @PutMapping("/{robotId}/switch-sensor-and-list")
     @ResponseStatus(HttpStatus.OK)
     public List<RobotDto> switchSensorAndList(@PathVariable("robotId") Long robotId) {
         Robot robot = checkIfRobotExists(robotId);
-        robot.switchSensor();
+        robot.switchSensor(); // TODO should return a list of all robots, not just this robot in a list structure
         return this.list();
     }
 
-    @PutMapping("/switch-actuator-and-list")
+    @PutMapping("/{robotId}/switch-actuator-and-list")
     @ResponseStatus(HttpStatus.OK)
     public List<RobotDto> switchActuatorAndList(@PathVariable("robotId") Long robotId) {
         Robot robot = checkIfRobotExists(robotId);
-        robot.switchActuator();
+        robot.switchActuator();  // TODO should return a list of all robots, not just this robot in a list structure
         return this.list();
     }
 

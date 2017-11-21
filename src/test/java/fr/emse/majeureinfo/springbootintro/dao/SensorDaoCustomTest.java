@@ -30,7 +30,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @TestPropertySource("/test.properties")
 public class SensorDaoCustomTest {
 
-
+    @Autowired
     private SensorDao sensorDao;
 
 
@@ -40,7 +40,7 @@ public class SensorDaoCustomTest {
 
     protected static final DbSetupTracker TRACKER = new DbSetupTracker();
 
-     protected void dbSetup(Operation operation) {
+    protected void dbSetup(Operation operation) {
     }
 
     @Before
