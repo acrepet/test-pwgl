@@ -25,13 +25,27 @@ repositories {
 
 dependencies {
 
-	compile 'org.springframework.boot:spring-boot-starter-data-jpa'
-	compile 'org.springframework.boot:spring-boot-starter-web'
+
+
 	compile "com.heroku.sdk:heroku-jdbc:0.1.1"
 
-	testCompile 'org.springframework.boot:spring-boot-starter-test'
+	compile('org.springframework.boot:spring-boot-starter-data-jpa')
+	compile('org.springframework.boot:spring-boot-starter-web')
+	runtime('org.springframework.boot:spring-boot-devtools')
+	testCompile('org.springframework.boot:spring-boot-starter-test')
+
+
+
+
+
+
+	compile('com.h2database:h2')
+
+
+
 	testCompile 'com.ninja-squad:DbSetup:2.1.0'
 
-	runtime('org.springframework.boot:spring-boot-devtools')
-	runtime 'com.h2database:h2:1.4.196'
+
+
+
 }
