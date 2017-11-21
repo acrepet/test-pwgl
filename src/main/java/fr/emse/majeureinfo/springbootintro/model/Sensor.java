@@ -6,11 +6,17 @@ import javax.persistence.*;
 @SuppressWarnings("serial")
 public class Sensor {
 
+    @Id
     private Long id;
 
     private Integer signal;
 
+    @Enumerated(EnumType.STRING)
     private Status status;
+
+    @SuppressWarnings("unused")
+    public Sensor(){
+    }
 
     public Sensor(Integer signal, Status status) {
         this.signal = signal;
