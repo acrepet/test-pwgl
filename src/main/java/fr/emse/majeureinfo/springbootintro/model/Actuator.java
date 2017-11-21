@@ -6,11 +6,17 @@ import javax.persistence.*;
 @SuppressWarnings("serial")
 public class Actuator {
 
+    @Id
     private Long id;
 
     private Integer speed;
 
+    @Enumerated(EnumType.STRING)
     private Status status;
+
+    @SuppressWarnings("unused")
+    public Actuator(){
+    }
 
     public Actuator(Integer speed, Status status) {
         this.speed = speed;

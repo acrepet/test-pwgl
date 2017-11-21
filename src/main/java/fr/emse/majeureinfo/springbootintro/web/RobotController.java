@@ -9,6 +9,9 @@ import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@RestController
+@RequestMapping(value = "/api/robots")
+@Transactional
 public class RobotController {
 
     private final RobotDao robotDao;
@@ -31,7 +34,7 @@ public class RobotController {
         return new RobotDto(checkIfRobotExists(robotId));
     }
 
-    @PutMapping("/switch-sensor-and-list")
+    @PutMapping("/{robotId}/switch-sensor-and-list")
     @ResponseStatus(HttpStatus.OK)
     public List<RobotDto> switchSensorAndList(@PathVariable("robotId") Long robotId) {
         Robot robot = checkIfRobotExists(robotId);
@@ -39,7 +42,7 @@ public class RobotController {
         return this.list();
     }
 
-    @PutMapping("/switch-actuator-and-list")
+    @PutMapping("/{robotId}/switch-actuator-and-list")
     @ResponseStatus(HttpStatus.OK)
     public List<RobotDto> switchActuatorAndList(@PathVariable("robotId") Long robotId) {
         Robot robot = checkIfRobotExists(robotId);
