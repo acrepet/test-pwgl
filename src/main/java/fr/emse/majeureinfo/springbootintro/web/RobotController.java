@@ -9,6 +9,9 @@ import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@RestController
+@RequestMapping(value = "/api/robots")
+@Transactional
 public class RobotController {
 
     private final RobotDao robotDao;
@@ -31,17 +34,17 @@ public class RobotController {
         return new RobotDto(checkIfRobotExists(robotId));
     }
 
-    @PutMapping("/switch-sensor-and-list")
+    @PostMapping(path = "/{robotId}/switch-sensor-and-list")
     @ResponseStatus(HttpStatus.OK)
-    public List<RobotDto> switchSensorAndList(@PathVariable("robotId") Long robotId) {
+    public List<RobotDto> switchSensorAndList(@PathVariable Long robotId) {
         Robot robot = checkIfRobotExists(robotId);
         robot.switchSensor();
         return this.list();
     }
 
-    @PutMapping("/switch-actuator-and-list")
+    @PostMapping(path = "/{robotId}/switch-actuator-and-list")
     @ResponseStatus(HttpStatus.OK)
-    public List<RobotDto> switchActuatorAndList(@PathVariable("robotId") Long robotId) {
+    public List<RobotDto> switchActuatorAndList(@PathVariable Long robotId) {
         Robot robot = checkIfRobotExists(robotId);
         robot.switchActuator();
         return this.list();
@@ -59,7 +62,7 @@ public class RobotController {
     private Robot checkIfRobotExists(Long robotId){
         if (robotId == null) throw new NotFoundException("Robot ID must not be null");
         Robot robot = robotDao.findOne(robotId);
-        if (robotId == null) throw new NotFoundException("No robot with ID " + robotId);
+        if (robot == null) throw new NotFoundException("No robot with ID " + robotId);
         return robot;
     }
 }

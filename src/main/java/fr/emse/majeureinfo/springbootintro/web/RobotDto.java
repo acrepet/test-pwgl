@@ -20,12 +20,12 @@ public class RobotDto {
         return id;
     }
 
-    public Sensor getSensor() {
-        return sensor;
+    public SensorDto getSensor() {
+        return new SensorDto(sensor);
     }
 
-    public Actuator getActuator() {
-        return actuator;
+    public ActuatorDto getActuator() {
+        return new ActuatorDto(actuator);
     }
 
 }

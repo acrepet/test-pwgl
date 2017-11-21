@@ -1,21 +1,28 @@
 package fr.emse.majeureinfo.springbootintro.model;
 
-import javax.persistence.Entity;
+import javax.persistence.*;
 
 @Entity
 @SuppressWarnings("serial")
 public class Robot {
 
+    //Rajout des annotations
+    @Id
+    @GeneratedValue
     private Long id;
 
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private Sensor sensor;
 
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private Actuator actuator;
 
     public Robot(Sensor sensor, Actuator actuator) {
         this.sensor = sensor;
         this.actuator = actuator;
     }
+
+    public Robot(){}   //Besoin d'un constructeur vide
 
 
     public Long getId() {
