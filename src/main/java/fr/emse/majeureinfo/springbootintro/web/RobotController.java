@@ -2,6 +2,7 @@ package fr.emse.majeureinfo.springbootintro.web;
 
 import fr.emse.majeureinfo.springbootintro.dao.RobotDao;
 import fr.emse.majeureinfo.springbootintro.model.Robot;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -9,11 +10,14 @@ import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@RestController
+@RequestMapping(value = "/api/robots")
+@Transactional
 public class RobotController {
 
     private final RobotDao robotDao;
 
-
+    @Autowired
     public RobotController(RobotDao robotDao) {
         this.robotDao = robotDao;
     }
