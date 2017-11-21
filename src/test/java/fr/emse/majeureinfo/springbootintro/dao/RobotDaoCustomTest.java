@@ -7,9 +7,9 @@ import com.ninja_squad.dbsetup.destination.DataSourceDestination;
 import com.ninja_squad.dbsetup.operation.DeleteAll;
 import com.ninja_squad.dbsetup.operation.Insert;
 import com.ninja_squad.dbsetup.operation.Operation;
-
 import fr.emse.majeureinfo.springbootintro.CommonOperations;
 import fr.emse.majeureinfo.springbootintro.model.Status;
+import fr.emse.majeureinfo.webserviceproject.model.Status;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -24,15 +24,14 @@ import javax.sql.DataSource;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-
 @RunWith(SpringRunner.class)
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @TestPropertySource("/test.properties")
-public class SensorDaoCustomTest {
+public class RobotDaoCustomTest {
 
     @Autowired
-    private SensorDao sensorDao;
+    private RobotDao robotDao;
 
 
     @Qualifier("dataSource")
@@ -41,11 +40,11 @@ public class SensorDaoCustomTest {
 
     protected static final DbSetupTracker TRACKER = new DbSetupTracker();
 
-     protected void dbSetup(Operation operation) {
+    protected void dbSetup(Operation operation) {
         DbSetup setup = new DbSetup(new DataSourceDestination(dataSource),
                 Operations.sequenceOf(CommonOperations.DELETE_ALL,operation));
         TRACKER.launchIfNecessary(setup);
-     }
+    }
 
     @Before
     public void prepare() {
@@ -55,14 +54,30 @@ public class SensorDaoCustomTest {
                         .columns("id", "signal")
                         .values(1L, 22)
                         .build();
-        dbSetup(sensor);
+
+        Operation actuator =
+                Insert.into("ACTUATOR")
+                        .withDefaultValue("status", Status.ON)
+                        .columns("id", "speed")
+                        .values(1L, 22)
+                        .build();
+
+        Operation robot =
+                Insert.into("ROBOT")
+                        .columns("id", "sensor_id", "actuator_id")
+                        .values(1L, 1L, 1L)
+                        .build();
+
+        dbSetup(Operations.sequenceOf(sensor,actuator,robot));
     }
 
     @Test
-    public void shouldFindOnSensors() {
+    public void findRoomsWithOnLights() {
         TRACKER.skipNextLaunch();
-        assertThat(sensorDao.findOnSensors()).hasSize(1);
+        assertThat(robotDao.findWithOnSensors()).hasSize(1);
     }
 
 
 }
+
+

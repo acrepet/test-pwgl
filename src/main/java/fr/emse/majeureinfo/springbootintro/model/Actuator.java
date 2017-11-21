@@ -1,15 +1,21 @@
 package fr.emse.majeureinfo.springbootintro.model;
 
+import ch.qos.logback.core.joran.action.ActionUtil;
+
 import javax.persistence.*;
 
 @Entity
 @SuppressWarnings("serial")
 public class Actuator {
 
+    @Id
+    @GeneratedValue
     private Long id;
 
+    @Column
     private Integer speed;
 
+    @Enumerated(EnumType.STRING)
     private Status status;
 
     public Actuator(Integer speed, Status status) {
@@ -17,6 +23,7 @@ public class Actuator {
         this.status = status;
     }
 
+    public Actuator(){}
 
     public Long getId() {
         return this.id;

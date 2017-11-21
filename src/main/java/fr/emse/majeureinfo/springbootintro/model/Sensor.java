@@ -6,10 +6,14 @@ import javax.persistence.*;
 @SuppressWarnings("serial")
 public class Sensor {
 
+    @Id
+    @GeneratedValue
     private Long id;
 
+    @Column
     private Integer signal;
 
+    @Enumerated(EnumType.STRING)
     private Status status;
 
     public Sensor(Integer signal, Status status) {
@@ -17,7 +21,7 @@ public class Sensor {
         this.status = status;
     }
 
-
+    public Sensor(){}
 
     public Long getId() {
         return this.id;
