@@ -5,11 +5,12 @@ import javax.persistence.*;
 @Entity
 @SuppressWarnings("serial")
 public class Sensor {
-
+    @Id
+    @GeneratedValue
     private Long id;
-
+    @Column(nullable = true)
     private Integer signal;
-
+    @Enumerated(EnumType.STRING)
     private Status status;
 
     public Sensor(Integer signal, Status status) {

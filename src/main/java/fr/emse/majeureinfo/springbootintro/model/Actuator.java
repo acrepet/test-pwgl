@@ -5,11 +5,12 @@ import javax.persistence.*;
 @Entity
 @SuppressWarnings("serial")
 public class Actuator {
-
+    @Id
+    @GeneratedValue
     private Long id;
-
+    @Column(nullable = true)
     private Integer speed;
-
+    @Enumerated(EnumType.STRING)
     private Status status;
 
     public Actuator(Integer speed, Status status) {
