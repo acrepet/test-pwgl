@@ -21,6 +21,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.sql.DataSource;
 
+import static fr.emse.majeureinfo.springbootintro.CommonOperations.DELETE_ALL;
 import static org.assertj.core.api.Assertions.assertThat;
 
 
@@ -31,6 +32,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class SensorDaoCustomTest {
 
 
+    @Autowired
     private SensorDao sensorDao;
 
 
@@ -40,8 +42,12 @@ public class SensorDaoCustomTest {
 
     protected static final DbSetupTracker TRACKER = new DbSetupTracker();
 
-     protected void dbSetup(Operation operation) {
+    protected void dbSetup(Operation operation) {
+        DbSetup setup = new DbSetup(new DataSourceDestination(dataSource),
+                Operations.sequenceOf(DELETE_ALL, operation));
+        TRACKER.launchIfNecessary(setup);
     }
+
 
     @Before
     public void prepare() {
